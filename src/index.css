@@ -1,0 +1,22 @@
+.container {
+	font-size: 20px;
+	margin: 30px auto;
+	width: 500px;
+}
+
+.opt {
+	font-size: 18px;
+	border: 1px solid blue;
+	margin-top: 10px;
+	min-width: 100px;
+	text-align: center;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 8px;
+	color: red;
+}
+
+.optcontainer {
+	display: flex;
+	justify-content: space-between;
+}
