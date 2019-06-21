@@ -17,4 +17,14 @@ export default class Component<P,S> {
     this._pendingStates = nextState
     enqueueRender(this)
   }
+
+  public componentWillMount() {
+    return undefined
+  }
+
+  public shouldComponentUpdate() {
+    return true
+  }
+
+
 }

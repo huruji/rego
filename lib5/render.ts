@@ -32,7 +32,9 @@ export default function render(vdom:Vdom, parent: Node) {
       })
       const classVnode = vdom.type as {new(props:any): ClassComponent}
       const instance = new (classVnode)(classProps)
+      if(instance.componentWillMount) instance.componentWillMount()
       const classChildVdom = instance.render()
+      if(instance.componentDidMount) instance.componentDidMount()
       const base = render(classChildVdom, parent)
       instance.base = base
       base._component = instance

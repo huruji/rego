@@ -19,24 +19,39 @@ function isSameNodeType(dom: Dom, vdom:Vdom):boolean {
   return dom && dom._component && dom._component.constructor === vdom.type
 }
 
-function isKeyChildren(oldChildren: Vdom, newChildren: Vdom):boolean {
+function isKeyChildren(oldChildren: Vdom[], newChildren: Vdom[]):boolean {
   return !!(oldChildren && oldChildren[0] && oldChildren[0].props && oldChildren[0].props.key && newChildren && newChildren[0] && newChildren[0].props && newChildren[0].props.key)
 }
 
 export default function diff(dom: Dom, vdom, parent: Dom = dom.parentNode):void {
+  debugger;
   if(!dom) {
     render(vdom, parent)
   } else if (!vdom) {
     dom.parentNode.removeChild(dom)
-  } else if ((typeof vdom === 'string' || typeof vdom === 'number') && dom.nodeType === 3) {
-    if(vdom !== dom.textContent) dom.textContent = vdom + ''
+  } else if ((typeof vdom === 'string' || typeof vdom === 'number')) {
+    debugger;
+    if(dom.nodeType === 3) {
+      if(vdom !== dom.textContent) dom.textContent = vdom + ''
+    } else {
+      const newNode = document.createTextNode(vdom + '')
+      parent.replaceChild(newNode, dom)
+    }
 	} else if (vdom.nodeType === 'classComponent' || vdom.nodeType === 'functionalComponent') {
 		const _component = dom._component as ClassComponent
-		if (_component.constructor === vdom.type) {
-      _component.props = vdom.props
-      diff(dom, _component.render())
+		if (_component && _component.constructor === vdom.type) {
+      _component.componentWillReceiveProps && _component.componentWillReceiveProps(vdom.props)
+      if(_component.shouldComponentUpdate(vdom.props, _component.state)) {
+        debugger;
+        _component.componentWillUpdate && _component.componentWillUpdate(vdom.props, _component.state)
+        const prevProps = Object.assign({}, _component.props)
+        _component.props = vdom.props
+        diff(dom, _component.render())
+        _component.componentDidUpdate && _component.componentDidUpdate(prevProps, _component.state)
+      }
 		} else {
       const newDom = render(vdom, dom.parentNode)
+      _component.componentWillUnmount && _component.componentWillUnmount()
       dom.parentNode.replaceChild(newDom, dom)
     }
 	} else if (vdom.nodeType === 'node') {
