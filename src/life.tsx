@@ -4,12 +4,12 @@ class List extends Component<any, any> {
 	componentWillReceiveProps(nextProps) {
 		console.log(nextProps)
 		console.log(this.props)
-		console.log('componentWillReceiveProps')
+		console.log('List: componentWillReceiveProps')
 	}
 	componentWillUpdate(nextProps, nextState) {
 		console.log(nextProps)
 		console.log(this.props)
-		console.log('componentWillUpdate')
+		console.log('List: componentWillUpdate')
 	}
 	render() {
 		const { name } = this.props
@@ -28,10 +28,10 @@ export default class App extends Component<any, any> {
 		})
 	}
 	componentWillMount() {
-		console.log('componentWillMount')
+		console.log('APP: componentWillMount')
 	}
 	componentDidMount() {
-		console.log('componentDidMount')
+		console.log('APP: componentDidMount')
 	}
 
 	componentWillUpdate(nextProps, nextState) {
@@ -42,7 +42,7 @@ export default class App extends Component<any, any> {
 		console.log('APP: componentWillUpdate')
 	}
 	componentDidUpdate() {
-		console.log('componentDidUpdate')
+		console.log('APP: componentDidUpdate')
 	}
 	render() {
 		console.log('render')

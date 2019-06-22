@@ -42,7 +42,6 @@ export default function diff(dom: Dom, vdom, parent: Dom = dom.parentNode):void 
 		if (_component && _component.constructor === vdom.type) {
       _component.componentWillReceiveProps && _component.componentWillReceiveProps(vdom.props)
       if(_component.shouldComponentUpdate(vdom.props, _component.state)) {
-        debugger;
         _component.componentWillUpdate && _component.componentWillUpdate(vdom.props, _component.state)
         const prevProps = Object.assign({}, _component.props)
         _component.props = vdom.props

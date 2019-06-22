@@ -7,14 +7,13 @@ function defer(fn) {
 
 function flush(component) {
   component.prevState = Object.assign({}, component.state)
-  debugger;
   if(component.shouldComponentUpdate(component.props, component._pendingStates)) {
-    debugger;
     component.componentWillUpdate && component.componentWillUpdate(component.props ,component._pendingStates )
 
     Object.assign(component.state, component._pendingStates)
 
     diff(component.base, component.render())
+
     component.componentDidUpdate && component.componentDidUpdate(component.props, component.prevState)
   }
 }
